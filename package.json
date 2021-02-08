@@ -1,0 +1,22 @@
+{
+  "name": "mern_shopping_cart_app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/noomdalv/mern_ecommerce.git"
+  },
+  "author": "noomdalv",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/noomdalv/mern_ecommerce/issues"
+  },
+  "homepage": "https://github.com/noomdalv/mern_ecommerce#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
