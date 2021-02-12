@@ -80,7 +80,7 @@ const products = [
 ];
 
 //common js
-module.exports = products;
+//module.exports = products;
 
 //es modules
-//export default products;
+export default products;
