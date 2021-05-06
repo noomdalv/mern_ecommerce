@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { PayPalButton } from "react-paypal-button-v2";
 import { Link } from "react-router-dom";
 import { Button, Row, Col, ListGroup, Image, Card } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,6 +18,9 @@ const OrderPage = ({ match }) => {
 	const orderDetails = useSelector((state) => state.orderDetails);
 	const { order, loading, error } = orderDetails;
 
+	const orderPay = useSelector((state) => state.orderPay);
+	const { loading: loadingPay, success: successPay } = orderPay;
+
 	useEffect(() => {
 		const addPayPalScript = async () => {
 			const { data: clientId } = await axios.get("/api/config/paypal");
@@ -30,10 +34,16 @@ const OrderPage = ({ match }) => {
 			document.body.appendChild(script);
 		};
 
-		addPayPalScript();
-
-		dispatch(getOrderDetails(orderId));
-	}, [dispatch, orderId]);
+		if (!order || successPay) {
+			dispatch(getOrderDetails(orderId));
+		} else if (!order.isPaid) {
+			if (!window.paypal) {
+				addPayPalScript();
+			} else {
+				setSdkReady(true);
+			}
+		}
+	}, [dispatch, orderId, order, successPay]);
 
 	return loading ? (
 		<Loader />
@@ -150,6 +160,9 @@ const OrderPage = ({ match }) => {
 									<Col>${order.totalPrice}</Col>
 								</Row>
 							</ListGroup.Item>
+							{!order.isPaid && (
+								<ListGroup.Item>{loadingPay && <Loader />}</ListGroup.Item>
+							)}
 						</ListGroup>
 					</Card>
 				</Col>
