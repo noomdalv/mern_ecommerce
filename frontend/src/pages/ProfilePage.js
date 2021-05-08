@@ -125,7 +125,7 @@ const ProfilePage = ({ location, history }) => {
 						</thead>
 						<tbody>
 							{orders.map((order) => (
-								<tr key={order.id}>
+								<tr key={order._id}>
 									<td>{order._id}</td>
 									<td>{order.createdAt.substring(0, 10)}</td>
 									<td>{order.totalPrice}</td>
