@@ -13,7 +13,7 @@ const UserListPage = () => {
 	const { loading, error, users } = userList;
 
 	useEffect(() => {
-		dispatch(getUserList);
+		dispatch(getUserList());
 	}, [getUserList]);
 
 	const deleteHandler = (id) => {
